@@ -1,0 +1,7 @@
+*.o
+*.d
+*.elf
+*.json
+build/
+.cache/
+.tmp/
