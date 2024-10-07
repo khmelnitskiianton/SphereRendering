@@ -1,39 +1,53 @@
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <stdlib.h>
-#include <SFML/Graphics.hpp>
+#include <cmath>
 
-const unsigned int DEFAULT_HEIGHT = 400;
-const unsigned int DEFAULT_WIDTH = 400;
+#include "Vector.hpp"
+#include "Graphics.hpp"
+#include "ColorVector.hpp"
 
-typedef struct WindowSettings {
-  unsigned int width = DEFAULT_WIDTH;
-  unsigned int height = DEFAULT_HEIGHT;
-  const char* title;
-} WindowSettings_t;
+#include "rendering.hpp"
+
+using namespace Vector3D;
 
 int main(int argc, const char *argv[]) {
-  WindowSettings_t sphere_info_window = {.title = "Pseudo 3D Sphere"}; 
-  if (argc == 3)
-  {
-    sphere_info_window.width = static_cast<unsigned int>(atoi(argv[1]));
-    sphere_info_window.height = static_cast<unsigned int>(atoi(argv[2]));
+  //Set Window
+  Sphere sphere;
+  if (argc == 3) {
+    sphere.Resize(atoi(argv[1]), atoi(argv[2]));
   }
+
+  //Init SFML Window
+  sf::RenderWindow sphere_win(sf::VideoMode(sphere.win_info.GetWidth(), sphere.win_info.GetHeight()), sphere.win_info.GetTitle());
   
-  std::cout << sphere_info_window.width << "\n";
-  std::cout << sphere_info_window.height << "\n";
+  sf::Texture sphere_texture;
+  sf::Sprite sphere_sprite;
 
-  sf::RenderWindow sphere_window(sf::VideoMode(sphere_info_window.width, sphere_info_window.height), "Sphere Rendering!");
+  sphere_texture.create(sphere.win_info.GetHeight(), sphere.win_info.GetWidth());
 
-  while (sphere_window.isOpen()) {
+  sphere_texture.update(sphere.GetPixelsPtr());
+  sphere_sprite.setTexture(sphere_texture);
+
+  while (sphere_win.isOpen()) {
     sf::Event event;
-    while (sphere_window.pollEvent(event)) {
+    while (sphere_win.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
-        sphere_window.close();
+        sphere_win.close();
     }
+    //Clear
+    sphere_win.clear(sphere.win_info.GetBckgColor());
 
-    sphere_window.clear();
-    sphere_window.display();
+    //Rendering Sphere  
+    Update(sphere);
+
+    //Update Sprite
+    sphere_texture.update(sphere.GetPixelsPtr());
+    sphere_sprite.setTexture(sphere_texture);
+    sphere_win.draw(sphere_sprite);
+
+    //Display
+    sphere_win.display();
   }
-
   return 0;
 }

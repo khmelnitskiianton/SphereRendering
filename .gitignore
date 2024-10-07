@@ -2,6 +2,8 @@
 *.d
 *.elf
 *.json
+sphere
 build/
 .cache/
 .tmp/
+.vscode/
