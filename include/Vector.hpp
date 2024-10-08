@@ -4,7 +4,7 @@
 
 namespace Vector3D {
 
-  typedef int vec3_el;
+  typedef double vec3_el;
 
   //Class Vector3
   class Vector3 {
@@ -21,6 +21,7 @@ namespace Vector3D {
 
   vec3_el Length(const Vector3 &a);
   Vector3 Normal(const Vector3 &a);
+  Vector3 MultByElement(const Vector3 &a, const Vector3 &b);
 
   //Operators
   Vector3 operator+(const Vector3 &a, const Vector3 &b);
@@ -67,6 +68,7 @@ namespace Vector2D {
 
   vec2_el Length(const Vector2 &a);
   Vector2 Normal(const Vector2 &a);
+  Vector2 MultByElement(const Vector2 &a, const Vector2 &b);
   Vector2 CartesianToPolar(const Vector2 &a);
   Vector2 PolarToCartesian(const Vector2 &a);
 

@@ -39,7 +39,7 @@ CFLAGS_WIN =	-Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat
 				-Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing 			\
 				-Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-CFLAGS_LINUX = 	-D _DEBUG -ggdb3 -std=c++17 -O1 -Wall -Wextra -Weffc++ 								 			\
+CFLAGS_LINUX = 	-D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ 								 			\
 				-Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts 				\
 				 -Wconversion -Wctor-dtor-privacy -Wempty-body -Wfloat-equal 									\
 				-Wformat-nonliteral -Wformat-security -Wformat=2 -Winline										\

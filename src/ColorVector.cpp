@@ -1,11 +1,14 @@
 #include <SFML/Graphics.hpp>
+#include <climits>
 #include <cmath>
 #include <cstdint>
 #include <iostream>
 #include <stdlib.h>
 #include <sys/types.h>
 
+#include "Vector.hpp"
 #include "ColorVector.hpp"
+#include "Support.hpp"
 
 namespace ColorRGBA {
 
@@ -28,36 +31,45 @@ namespace ColorRGBA {
     }
     return *this;
   }
-
-  sf::Color ColorVectorToSFMLColor(const ColorVector &color) {
-    return sf::Color(color.r, color.g, color.b, color.a);
+  //Convert
+  sf::Color ColorVector::ColorVectorToSFMLColor() {
+    return sf::Color(r, g, b, a);
+  }
+  Vector3D::Vector3 ColorVector::ColorVectorToVector3() {
+    return Vector3D::Vector3(r, g, b);
   }
   ColorVector SFMLColorToColorVector(const sf::Color &color) {
     return ColorVector(color.r, color.g, color.b, color.a);
   }
+  ColorVector Vector3ToColorVector(const Vector3D::Vector3 &a) {
+    return ColorVector(Uint8OverflowDouble(a.x), Uint8OverflowDouble(a.y), Uint8OverflowDouble(a.z), UINT8_MAX);
+  }
+  ColorVector MultByElement(const ColorVector &a, const ColorVector &b) {
+    ColorVector ColorVector((Uint8) (int(a.r) * int(b.r) / UINT8_MAX),
+                            (Uint8) (int(a.g) * int(b.g) / UINT8_MAX),
+                            (Uint8) (int(a.b) * int(b.b) / UINT8_MAX),
+                            UINT8_MAX);
+    //std::cout << (Uint8)(int(a.r) * int(b.r) / UINT8_MAX);
+    return ColorVector;
+  }
+
   //Base
   ColorVector operator+(const ColorVector &a, const ColorVector &b) {
-    return ColorVector(a.r + b.r, a.g + b.g, a.b + b.b, a.a + b.a);
+    return ColorVector(a.r + b.r, a.g + b.g, a.b + b.b);
   }
   ColorVector operator-(const ColorVector &a, const ColorVector &b) {
-    return ColorVector(a.r - b.r, a.g - b.g, a.b - b.b, a.a - b.a);
-  }
-  ColorVector operator*(const ColorVector &a, const ColorVector &b) {
-    return ColorVector(a.r * b.r, a.g * b.g, a.b * b.b, a.a * b.a);
-  }
-  ColorVector operator/(const ColorVector &a, const ColorVector &b) {
-    return ColorVector(a.r / b.r, a.g / b.g, a.b / b.b, a.a / b.a);
+    return ColorVector(a.r - b.r, a.g - b.g, a.b - b.b);
   }
 
   //Multiply by scalar
-  ColorVector operator*(const ColorVector &a, const Uint8 &scalar) {
-    return ColorVector(a.r * scalar, a.g * scalar, a.b * scalar, a.a * scalar);
+  ColorVector operator*(const ColorVector &a, const double &scalar) {
+    return ColorVector(Uint8OverflowDouble(double(a.r) * scalar),
+                       Uint8OverflowDouble(double(a.g) * scalar),
+                       Uint8OverflowDouble(double(a.b) * scalar),
+                       UINT8_MAX);
   }
-  ColorVector operator*(const Uint8 &scalar, const ColorVector &a) {
-    return ColorVector(a.r * scalar, a.g * scalar, a.b * scalar, a.a * scalar);
-  }
-  ColorVector operator/(const ColorVector &a, const Uint8 &scalar) {
-    return ColorVector(a.r / scalar, a.g / scalar, a.b / scalar, a.a / scalar);
+  ColorVector operator*(const double &scalar, const ColorVector &a) {
+    return a * scalar;
   }
 
   //References
@@ -65,42 +77,18 @@ namespace ColorRGBA {
     a.r += b.r;
     a.g += b.g;
     a.b += b.b;
-    a.a += b.a;
     return a;
   }
   ColorVector &operator-=(ColorVector &a, const ColorVector &b) {
     a.r -= b.r;
     a.g -= b.g;
     a.b -= b.b;
-    a.a -= b.a;
     return a;
   }
-  ColorVector &operator*=(ColorVector &a, const ColorVector &b) {
-    a.r *= b.r;
-    a.g *= b.g;
-    a.b *= b.b;
-    a.a += b.a;
-    return a;
-  }
-  ColorVector &operator*=(ColorVector &a, const Uint8 &scalar) {
-    a.r *= scalar;
-    a.g *= scalar;
-    a.b *= scalar;
-    a.a *= scalar;
-    return a;
-  }
-  ColorVector &operator/=(ColorVector &a, const ColorVector &b) {
-    a.r /= b.r;
-    a.g /= b.g;
-    a.b /= b.b;
-    a.a /= b.a;
-    return a;
-  }
-  ColorVector &operator/=(ColorVector &a, const Uint8 &scalar) {
-    a.r /= scalar;
-    a.g /= scalar;
-    a.b /= scalar;
-    a.a /= scalar;
+  ColorVector &operator*=(ColorVector &a, const double &scalar) {
+    a.r = Uint8OverflowDouble(double(a.r) * scalar);
+    a.g = Uint8OverflowDouble(double(a.g) * scalar);
+    a.b = Uint8OverflowDouble(double(a.b) * scalar);
     return a;
   }
   //Bool
@@ -124,8 +112,8 @@ namespace ColorRGBA {
     return input;
   }
   std::ostream &operator<<(std::ostream &output, const ColorVector &out_color) {
-    output << out_color.r << " " << out_color.g << " " << out_color.b << " " << out_color.b;
-    return output;
+    return output << static_cast<unsigned int>(out_color.r) << " " << static_cast<unsigned int>(out_color.g) << " "
+                  << static_cast<unsigned int>(out_color.b) << " " << static_cast<unsigned int>(out_color.a);
   }
 
 }//namespace ColorRGBA

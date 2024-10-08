@@ -2,6 +2,6 @@
 #ifndef SPHERE_RENDERING_INCLUDE_RENDERING_HPP
   #define SPHERE_RENDERING_INCLUDE_RENDERING_HPP
 
-void Update(GraphicSystem &system);
+void Update(GSystem::GraphicSystem &system);
 
 #endif//SPHERE_RENDERING_INCLUDE_RENDERING_HPP

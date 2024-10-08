@@ -1,7 +1,11 @@
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <cmath>
 #include <iostream>
 #include <stdlib.h>
 
+#include "ColorVector.hpp"
+#include "Support.hpp"
 #include "Vector.hpp"
 
 namespace Vector3D {
@@ -31,6 +35,10 @@ namespace Vector3D {
 
   Vector3 Normal(const Vector3 &a) {
     return a / Length(a);
+  }
+
+  Vector3 MultByElement(const Vector3 &a, const Vector3 &b) {
+    return Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
   }
 
   //Base
@@ -82,10 +90,10 @@ namespace Vector3D {
   }
   //Bool
   bool operator==(const Vector3 &a, const Vector3 &b) {
-    return (a.x == b.x) && (a.y == b.y) && (a.z == b.z);
+    return (!compare_doubles(a.x, b.x)) && (!compare_doubles(a.y, b.y)) && (!compare_doubles(a.z, b.z));
   }
   bool operator!=(const Vector3 &a, const Vector3 &b) {
-    return (a.x != b.x) || (a.y != b.y) || (a.z != b.z);
+    return (compare_doubles(a.x, b.x)) || (compare_doubles(a.y, b.y)) || (compare_doubles(a.z, b.z));
   }
 
   //Unary
@@ -145,6 +153,10 @@ namespace Vector2D {
 
   Vector2 Normal(const Vector2 &a) {
     return a / Length(a);
+  }
+
+  Vector2 MultByElement(const Vector2 &a, const Vector2 &b) {
+    return Vector2(a.x * b.x, a.y * b.y);
   }
 
   Vector2 CartesianToPolar(const Vector2 &a) {
@@ -216,10 +228,10 @@ namespace Vector2D {
   }
   //Bool
   bool operator==(const Vector2 &a, const Vector2 &b) {
-    return (a.x == b.x) && (a.y == b.y) && (a.system == b.system);
+    return (!compare_doubles(a.x, b.x)) && (!compare_doubles(a.y, b.y));
   }
   bool operator!=(const Vector2 &a, const Vector2 &b) {
-    return (a.x != b.x) || (a.y != b.y) || (a.system != b.system);
+    return (compare_doubles(a.x, b.x)) || (compare_doubles(a.y, b.y));
   }
 
   //Unary
