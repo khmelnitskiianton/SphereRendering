@@ -1,5 +1,7 @@
 # SphereRendering
+
 Rendering sphere on C++ using SFML
+
 ## Installation
 
 ```bash
@@ -8,5 +10,8 @@ sudo apt-get install libsfml-dev
 git clone https://github.com/khmelnitskiianton/SphereRendering
 cd SphereRendering
 make compile
-./sphere.elf <options>
+./sphere
 ```
+## Using
+
+Run `./sphere <width> <height>` to set custom size of window
