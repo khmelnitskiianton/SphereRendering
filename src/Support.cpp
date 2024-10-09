@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <stdlib.h>
 
+#include "Vector.hpp"
 #include "ColorVector.hpp"
 #include "Support.hpp"
 

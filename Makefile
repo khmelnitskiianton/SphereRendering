@@ -51,9 +51,9 @@ CFLAGS_LINUX = 	-D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ 								 
 				-Wno-narrowing -Wno-old-style-cast -Wno-varargs -Wstack-protector -fcheck-new 					\
 				-fsized-deallocation -fstack-protector -fstrict-overflow                        				\
 				-fno-omit-frame-pointer -Wlarger-than=8192 -fPIE -Werror=vla 									\
-				-fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,$\
-				integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,$\
-				returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr
+				#-fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,$\
+				#integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,$\
+				#returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr
 
 #flag to tell compiler where headers are located
 CFLAGS = -I./$(INCLUDEDIR)

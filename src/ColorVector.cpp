@@ -1,10 +1,7 @@
 #include <SFML/Graphics.hpp>
-#include <climits>
 #include <cmath>
-#include <cstdint>
 #include <iostream>
 #include <stdlib.h>
-#include <sys/types.h>
 
 #include "Vector.hpp"
 #include "ColorVector.hpp"

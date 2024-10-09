@@ -48,7 +48,7 @@ namespace GSystem {
       return title;
     }
     uint8_t *GetPixelsPtr() const {
-      return sphere_pixels;
+      return pixels;
     }
     unsigned int GetArea() const {
       return area;
@@ -66,7 +66,7 @@ namespace GSystem {
     unsigned int area;
     int center_x;
     int center_y;
-    uint8_t *sphere_pixels = nullptr;
+    uint8_t *pixels = nullptr;
 
     ColorRGBA::ColorVector bckg_color;
     const char *title = nullptr;

@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Color.hpp>
 #include <cmath>
 #include <stdlib.h>
 
+#include "Vector.hpp"
 #include "ColorVector.hpp"
 #include "Graphics.hpp"
 #include "Objects.hpp"

@@ -1,10 +1,9 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Color.hpp>
 #include <cmath>
-#include <cstdint>
 #include <iostream>
 #include <stdlib.h>
 
+#include "Vector.hpp"
 #include "ColorVector.hpp"
 #include "Graphics.hpp"
 #include "Support.hpp"
@@ -21,27 +20,27 @@ namespace GSystem {
     center_x = static_cast<int>(width / 2);
     center_y = static_cast<int>(height / 2);
 
-    sphere_pixels = new uint8_t[area * 4] {};
+    pixels = new uint8_t[area * 4] {};
 
     bckg_color = init_bckg_color;
     title = init_title;
   }
 
   GraphicSystem::~GraphicSystem() {
-    delete[] sphere_pixels;
+    delete[] pixels;
   }
 
   void GraphicSystem::Clear() {
     for (unsigned int i = 0; i < height; i++) {
       for (unsigned int j = 0; j < width; j++) {
-        *(sphere_pixels + i * width + j + 0) = 0;
-        *(sphere_pixels + i * width + j + 1) = 0;
-        *(sphere_pixels + i * width + j + 2) = 0;
-        *(sphere_pixels + i * width + j + 3) = 0;
+        *(pixels + i * width + j + 0) = 0;
+        *(pixels + i * width + j + 1) = 0;
+        *(pixels + i * width + j + 2) = 0;
+        *(pixels + i * width + j + 3) = 0;
       }
     }
-    delete[] sphere_pixels;
-    sphere_pixels = new uint8_t[area * 4] {};
+    delete[] pixels;
+    pixels = new uint8_t[area * 4] {};
   }
 
   void GraphicSystem::Resize(int new_width, int new_height) {
@@ -56,8 +55,8 @@ namespace GSystem {
     center_x = static_cast<int>(width / 2);
     center_y = static_cast<int>(height / 2);
 
-    delete[] sphere_pixels;
-    sphere_pixels = new uint8_t[area * 4] {};
+    delete[] pixels;
+    pixels = new uint8_t[area * 4] {};
   }
 
   void GraphicSystem::DrawPixelAbsolute(int pos_x, int pos_y, ColorRGBA::ColorVector pixel_color) {
@@ -74,10 +73,10 @@ namespace GSystem {
 
     //std::cout << "Corr: " << correct_x << " " << correct_y << " " << absolute_shift << " ";
 
-    *(sphere_pixels + absolute_shift) = pixel_color.r;
-    *(sphere_pixels + absolute_shift + 1) = pixel_color.g;
-    *(sphere_pixels + absolute_shift + 2) = pixel_color.b;
-    *(sphere_pixels + absolute_shift + 3) = pixel_color.a;
+    *(pixels + absolute_shift) = pixel_color.r;
+    *(pixels + absolute_shift + 1) = pixel_color.g;
+    *(pixels + absolute_shift + 2) = pixel_color.b;
+    *(pixels + absolute_shift + 3) = pixel_color.a;
 
     //std::cout << " +" << "\n";
   }
@@ -99,10 +98,10 @@ namespace GSystem {
 
     //std::cerr << "Corr: " << correct_x << " " << correct_y << " " << absolute_shift << " ";
 
-    *(sphere_pixels + absolute_shift) = pixel_color.r;
-    *(sphere_pixels + absolute_shift + 1) = pixel_color.g;
-    *(sphere_pixels + absolute_shift + 2) = pixel_color.b;
-    *(sphere_pixels + absolute_shift + 3) = pixel_color.a;
+    *(pixels + absolute_shift) = pixel_color.r;
+    *(pixels + absolute_shift + 1) = pixel_color.g;
+    *(pixels + absolute_shift + 2) = pixel_color.b;
+    *(pixels + absolute_shift + 3) = pixel_color.a;
   }
 
   void

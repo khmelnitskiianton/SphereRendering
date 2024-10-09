@@ -2,8 +2,6 @@
 #ifndef SPHERE_RENDERING_COLOR_VECTOR_HPP
 #define SPHERE_RENDERING_COLOR_VECTOR_HPP
 
-#include "Vector.hpp"
-
 namespace ColorRGBA {
 
   // 8 bits integer types

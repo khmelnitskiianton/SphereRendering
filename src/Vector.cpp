@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Color.hpp>
 #include <cmath>
 #include <iostream>
 #include <stdlib.h>

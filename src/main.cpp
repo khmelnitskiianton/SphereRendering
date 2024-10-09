@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include "Vector.hpp"
 #include "ColorVector.hpp"
 #include "Graphics.hpp"
 #include "Objects.hpp"
