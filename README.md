@@ -15,3 +15,9 @@ make compile
 ## Using
 
 Run `./sphere <width> <height>` to set custom size of window
+
+![Example](image.png)
+
+You have classes of `GObjects::Sphere`,`GObjects::Light` to set your sphere with different lightning
+
+Also you can change it's position by `WASD` keys.

@@ -2,9 +2,9 @@
 #include <SFML/Graphics/Color.hpp>
 #include <cmath>
 #include <cstdint>
+#include <iostream>
 #include <stdlib.h>
 
-#include "Vector.hpp"
 #include "ColorVector.hpp"
 #include "Graphics.hpp"
 #include "Support.hpp"
@@ -31,12 +31,27 @@ namespace GSystem {
     delete[] sphere_pixels;
   }
 
+  void GraphicSystem::Clear() {
+    for (unsigned int i = 0; i < height; i++) {
+      for (unsigned int j = 0; j < width; j++) {
+        *(sphere_pixels + i * width + j + 0) = 0;
+        *(sphere_pixels + i * width + j + 1) = 0;
+        *(sphere_pixels + i * width + j + 2) = 0;
+        *(sphere_pixels + i * width + j + 3) = 0;
+      }
+    }
+    delete[] sphere_pixels;
+    sphere_pixels = new uint8_t[area * 4] {};
+  }
+
   void GraphicSystem::Resize(int new_width, int new_height) {
     unsigned int clean_width = static_cast<unsigned int>(abs(new_width));
     unsigned int clean_height = static_cast<unsigned int>(abs(new_height));
     width = (clean_width < MAX_WIDTH) ? clean_width : MAX_WIDTH;
     height = (clean_height < MAX_HEIGHT) ? clean_height : MAX_HEIGHT;
     area = width * height;
+
+    std::cout << "new: " << width << " " << height << "\n";
 
     center_x = static_cast<int>(width / 2);
     center_y = static_cast<int>(height / 2);
@@ -49,18 +64,22 @@ namespace GSystem {
     int max_x = int(width);
     int max_y = int(height);
 
-    int shift_x = ((pos_x < max_x) ? pos_x : max_x);
-    int shift_y = ((pos_y < max_y) ? pos_y : max_y);
+    int shift_x = ((pos_x < (max_x - 1)) ? pos_x : max_x - 1);
+    int shift_y = ((pos_y < (max_y - 1)) ? pos_y : max_y - 1);
 
     unsigned int correct_x = static_cast<unsigned int>((shift_x > 0) ? shift_x : 0);
     unsigned int correct_y = static_cast<unsigned int>((shift_y > 0) ? shift_y : 0);
 
     unsigned int absolute_shift = correct_y * width * 4 + correct_x * 4;
 
+    //std::cout << "Corr: " << correct_x << " " << correct_y << " " << absolute_shift << " ";
+
     *(sphere_pixels + absolute_shift) = pixel_color.r;
     *(sphere_pixels + absolute_shift + 1) = pixel_color.g;
     *(sphere_pixels + absolute_shift + 2) = pixel_color.b;
     *(sphere_pixels + absolute_shift + 3) = pixel_color.a;
+
+    //std::cout << " +" << "\n";
   }
 
   void GraphicSystem::DrawPixelRelatively(int pos_x, int pos_y, ColorRGBA::ColorVector pixel_color) {
@@ -70,13 +89,15 @@ namespace GSystem {
     int shift_x = ((pos_x < rel_x) ? pos_x : rel_x);
     int shift_y = ((pos_y < rel_y) ? pos_y : rel_y);
 
-    unsigned int abs_x = static_cast<unsigned int>(int(center_x) + shift_x);
-    unsigned int abs_y = static_cast<unsigned int>(int(center_y) + shift_y);
+    unsigned int abs_x = static_cast<unsigned int>(((int(center_x) + shift_x) > 0) ? (int(center_x) + shift_x) : 0);
+    unsigned int abs_y = static_cast<unsigned int>(((int(center_y) + shift_y) > 0) ? (int(center_y) + shift_y) : 0);
 
-    unsigned int correct_x = (abs_x < height) ? abs_x : height;
-    unsigned int correct_y = (abs_y < width) ? abs_y : width;
+    unsigned int correct_x = (abs_x < (height - 1)) ? abs_x : (height - 1);
+    unsigned int correct_y = (abs_y < (width - 1)) ? abs_y : (width - 1);
 
     unsigned int absolute_shift = correct_y * width * 4 + correct_x * 4;
+
+    //std::cerr << "Corr: " << correct_x << " " << correct_y << " " << absolute_shift << " ";
 
     *(sphere_pixels + absolute_shift) = pixel_color.r;
     *(sphere_pixels + absolute_shift + 1) = pixel_color.g;

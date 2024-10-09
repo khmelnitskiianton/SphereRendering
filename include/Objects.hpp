@@ -1,8 +1,6 @@
 #pragma once
 #ifndef SPHERE_RENDERING_INCLUDE_OBJECTS_HPP
-  #define SPHERE_RENDERING_INCLUDE_OBJECTS_HPP
-
-#include "ColorVector.hpp"
+#define SPHERE_RENDERING_INCLUDE_OBJECTS_HPP
 
 namespace GObjects {
 
@@ -10,6 +8,16 @@ namespace GObjects {
   const int DEFAULT_CENTER_Y = 0;
   const int DEFAULT_CENTER_Z = 0;
   const int DEFAULT_RADIUS = 1;
+
+  class View {
+    int z;
+
+   public:
+    View(int new_z = DEFAULT_CENTER_Z) : z(new_z) {}
+    int GetZ() const {
+      return z;
+    }
+  };
 
   class Light {
     int x;
@@ -45,16 +53,25 @@ namespace GObjects {
     int x_c;
     int y_c;
     int r;
+    View eye;
     ColorRGBA::ColorVector sphere_color;
 
    public:
     Sphere(int new_x = DEFAULT_CENTER_X,
            int new_y = DEFAULT_CENTER_Y,
            int radius = DEFAULT_RADIUS,
+           int eye_height = DEFAULT_CENTER_Z,
            ColorRGBA::ColorVector new_color = ColorRGBA::ColorBlue);
     //Draw=================================
     void SphereDraw(GSystem::GraphicSystem &system, Light &light, double ambient_coeff);
     ColorRGBA::ColorVector ProcessLightColor(int pixel_x, int pixel_y, Light &light, double ambient_coeff);
+    //=====================================
+    void SetXC(int new_x_c) {
+      x_c = new_x_c;
+    }
+    void SetYC(int new_y_c) {
+      y_c = new_y_c;
+    }
     //=====================================
     int GetXC() const {
       return x_c;

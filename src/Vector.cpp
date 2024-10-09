@@ -4,9 +4,8 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "ColorVector.hpp"
-#include "Support.hpp"
 #include "Vector.hpp"
+#include "Support.hpp"
 
 namespace Vector3D {
 

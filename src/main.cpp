@@ -5,9 +5,9 @@
 
 #include "ColorVector.hpp"
 #include "Graphics.hpp"
-#include "rendering.hpp"
+#include "Objects.hpp"
 
-using namespace Vector3D;
+void WindowRendering(GSystem::GraphicSystem &system);
 
 int main(int argc, const char *argv[]) {
   //Set Window
@@ -16,16 +16,21 @@ int main(int argc, const char *argv[]) {
   if (argc == 3) {
     system.Resize(atoi(argv[1]), atoi(argv[2]));
   }
+  WindowRendering(system);
+  return 0;
+}
+
+void WindowRendering(GSystem::GraphicSystem &system) {
   //Init SFML Window
   sf::RenderWindow sphere_win(sf::VideoMode(system.GetWidth(), system.GetHeight()), system.GetTitle());
-
   sf::Texture sphere_texture;
   sf::Sprite sphere_sprite;
-
   sphere_texture.create(system.GetHeight(), system.GetWidth());
-
   sphere_texture.update(system.GetPixelsPtr());
   sphere_sprite.setTexture(sphere_texture);
+
+  GObjects::Sphere sphere(0, 0, 200, 0, ColorRGBA::ColorGreen);
+  GObjects::Light light(100, 100, 300, ColorRGBA::ColorWhite);
 
   while (sphere_win.isOpen()) {
     sf::Event event;
@@ -33,44 +38,36 @@ int main(int argc, const char *argv[]) {
       if (event.type == sf::Event::Closed)
         sphere_win.close();
       if (event.key.code == sf::Keyboard::Escape) {
-        std::cout << "Escape key pressed - closing window" << std::endl;
+        std::cerr << "Escape key pressed - closing window" << std::endl;
         sphere_win.close();
-      }
-      // Window resized event
-      if (event.type == sf::Event::Resized) {
-          system.Resize((int)event.size.width, (int)event.size.height);
       }
       //Keys
       if (event.type == sf::Event::KeyPressed) {
         // Check specific keys
         if (event.key.code == sf::Keyboard::W) {
-            std::cout << "W key pressed" << std::endl;
+          sphere.SetYC(sphere.GetYC() - 1);
         }
         if (event.key.code == sf::Keyboard::A) {
-            std::cout << "A key pressed" << std::endl;
+          sphere.SetXC(sphere.GetXC() - 1);
         }
         if (event.key.code == sf::Keyboard::S) {
-            std::cout << "S key pressed" << std::endl;
+          sphere.SetYC(sphere.GetYC() + 1);
         }
         if (event.key.code == sf::Keyboard::D) {
-            std::cout << "D key pressed" << std::endl;
+          sphere.SetXC(sphere.GetXC() + 1);
         }
       }
     }
-
     //Clear
     sphere_win.clear(system.GetBckgColor().ColorVectorToSFMLColor());
-
     //Rendering Sphere
-    Update(system);
-
+    system.Clear();
+    sphere.SphereDraw(system, light, 0.3);
     //Update Sprite
     sphere_texture.update(system.GetPixelsPtr());
     sphere_sprite.setTexture(sphere_texture);
     sphere_win.draw(sphere_sprite);
-
     //Display
     sphere_win.display();
   }
-  return 0;
 }

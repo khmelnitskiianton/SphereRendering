@@ -1,6 +1,8 @@
 #pragma once
 #ifndef SPHERE_RENDERING_COLOR_SUPPORT_HPP
-  #define SPHERE_RENDERING_COLOR_SUPPORT_HPP
+#define SPHERE_RENDERING_COLOR_SUPPORT_HPP
+
+#include "ColorVector.hpp"
 
 int compare_doubles(double x, double y);
 int min(int x, int y);

@@ -1,6 +1,6 @@
 #pragma once
 #ifndef SPHERE_RENDERING_VECTOR_HPP
-  #define SPHERE_RENDERING_VECTOR_HPP
+#define SPHERE_RENDERING_VECTOR_HPP
 
 namespace Vector3D {
 

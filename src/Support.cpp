@@ -1,13 +1,10 @@
 #include <SFML/Graphics.hpp>
-#include <cinttypes>
 #include <cmath>
 #include <cstdint>
-#include <iostream>
 #include <stdlib.h>
 
 #include "ColorVector.hpp"
 #include "Support.hpp"
-#include "Vector.hpp"
 
 static const double EPSILON = 1e-5;
 

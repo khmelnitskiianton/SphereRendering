@@ -1,8 +1,6 @@
 #pragma once
 #ifndef SPHERE_RENDERING_INCLUDE_GRAPHICS_HPP
-  #define SPHERE_RENDERING_INCLUDE_GRAPHICS_HPP
-
-#include "ColorVector.hpp"
+#define SPHERE_RENDERING_INCLUDE_GRAPHICS_HPP
 
 namespace GSystem {
 

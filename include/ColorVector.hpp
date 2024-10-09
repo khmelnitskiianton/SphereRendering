@@ -1,6 +1,6 @@
 #pragma once
 #ifndef SPHERE_RENDERING_COLOR_VECTOR_HPP
-  #define SPHERE_RENDERING_COLOR_VECTOR_HPP
+#define SPHERE_RENDERING_COLOR_VECTOR_HPP
 
 #include "Vector.hpp"
 
@@ -79,6 +79,7 @@ namespace ColorRGBA {
   static const ColorVector ColorBlue(0, 0, 255, 255);
   static const ColorVector ColorRed(255, 0, 0, 255);
   static const ColorVector ColorGreen(0, 255, 0, 255);
+  static const ColorVector ColorWtf(200, 70, 45, 255);
 }//namespace ColorRGBA
 
 #endif//SPHERE_RENDERING_COLOR_VECTOR_HPP
